@@ -29,4 +29,21 @@ router.post("/save", async (req, res) => {
 	}
 });
 
+router.get("/get-photos", async (req, res) => {
+	try {
+		const photoGrid = await Grid.find({});
+		res.status(200).json({
+			success: true,
+			msg: "Fectched grid data successfully!",
+			data: photoGrid,
+		});
+	} catch (err) {
+		res.status(500).json({
+			status: false,
+			msg: "Grid saving process was unsuccessful",
+			data: err,
+		});
+	}
+});
+
 module.exports = router;
