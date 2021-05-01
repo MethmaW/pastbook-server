@@ -29,7 +29,7 @@ router.post("/save", async (req, res) => {
 	}
 });
 
-router.get("/get-photos", async (req, res) => {
+router.get("/get", async (req, res) => {
 	try {
 		const photoGrid = await Grid.find({});
 		res.status(200).json({
@@ -41,6 +41,26 @@ router.get("/get-photos", async (req, res) => {
 		res.status(500).json({
 			status: false,
 			msg: "Grid saving process was unsuccessful",
+			data: err,
+		});
+	}
+});
+
+router.post("/delete", async (req, res) => {
+	console.log(req.body);
+	const { id } = req.body;
+
+	try {
+		const photoGrid = await Grid.deleteOne({ _id: id });
+		res.status(200).json({
+			success: true,
+			msg: "Deleted the grid successfully!",
+			data: photoGrid,
+		});
+	} catch (err) {
+		res.status(500).json({
+			status: false,
+			msg: "Grid deleting process was unsuccessful",
 			data: err,
 		});
 	}
