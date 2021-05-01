@@ -56,7 +56,6 @@ app.use("/api/grid", gridRoute);
 
 /**
  * connecting to mongoDB
- * @function connectDB
  */
 connectDB();
 

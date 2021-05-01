@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: db/index.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,49 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: db/index.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * MongoDB library for object data modeling
+ * @constant mongoose
+ * */
+const mongoose = require("mongoose");
 
+const colors = require("colors");
 
-    <h3> </h3>
+/**
+ * connecting to mongoDB
+ * @function connectDB
+ */
+const connectDB = () => {
+	const uri = process.env.DB_URI;
 
+	try {
+		mongoose.connect(
+			uri,
+			{
+				useNewUrlParser: true,
+				useUnifiedTopology: true,
+				useFindAndModify: false,
+			},
+			() => console.log(colors.blue.bold("🚀 Connected to MongoDB"))
+		);
+	} catch (error) {
+		console.log(error);
+	}
+};
 
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+module.exports = connectDB;
+</code></pre>
+        </article>
+    </section>
 
 
 

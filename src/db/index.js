@@ -1,6 +1,15 @@
+/**
+ * MongoDB library for object data modeling
+ * @constant mongoose
+ * */
 const mongoose = require("mongoose");
+
 const colors = require("colors");
 
+/**
+ * connecting to mongoDB
+ * @function connectDB
+ */
 const connectDB = () => {
 	const uri = process.env.DB_URI;
 

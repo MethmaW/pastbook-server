@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: db/models/Grid.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,30 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: db/models/Grid.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const mongoose = require("mongoose");
 
+/**
+ * Mongoose schema for the Grid collection
+ * @constant gridSchema
+ */
+const gridSchema = new mongoose.Schema({
+	photos: { type: [{}], required: true },
+	date: { type: Date, default: Date.now },
+});
 
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+module.exports = mongoose.model("Grid", gridSchema);
+</code></pre>
+        </article>
+    </section>
 
 
 
