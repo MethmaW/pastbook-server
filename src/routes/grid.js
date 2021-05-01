@@ -4,8 +4,6 @@ const Grid = require("../db/models/Grid");
 router.post("/save", async (req, res) => {
 	const { photos } = req.body;
 
-	console.log(req.body);
-
 	try {
 		const newGrid = new Grid({
 			photos: photos,
@@ -47,7 +45,6 @@ router.get("/get", async (req, res) => {
 });
 
 router.post("/delete", async (req, res) => {
-	console.log(req.body);
 	const { id } = req.body;
 
 	try {
