@@ -31,10 +31,10 @@ app.use(cors());
 connectDB();
 
 //import Routes
-const userRoute = require("./routes/home");
+const gridRoute = require("./routes/grid");
 
 //route middlewear
-app.use("/api/user", userRoute);
+app.use("/api/grid", gridRoute);
 
 //test route
 app.get("/", (req, res) => {

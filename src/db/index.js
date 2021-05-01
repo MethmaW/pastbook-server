@@ -2,12 +2,11 @@ const mongoose = require("mongoose");
 const colors = require("colors");
 
 const connectDB = () => {
-	const url = process.env.DB_URL;
-	const dbName = process.env.DB_NAME;
+	const uri = process.env.DB_URI;
 
 	try {
 		mongoose.connect(
-			url + dbName,
+			uri,
 			{
 				useNewUrlParser: true,
 				useUnifiedTopology: true,
