@@ -46,6 +46,8 @@ dotenv.config();
  */
 const gridRoute = require("./routes/grid");
 
+const { apiGridGet } = require("./__tests__/requests");
+
 /**
  * express app middlewear setup
  * @function use
@@ -58,6 +60,9 @@ app.use("/api/grid", gridRoute);
  * connecting to mongoDB
  */
 connectDB();
+
+/** tests */
+apiGridGet(app);
 
 /**
  * listening to the given port
