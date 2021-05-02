@@ -1,46 +1,68 @@
-//@ts-check
 /**
- * imports
- */
-
-//npm packages
+ * npm package - Node js framework
+ * @const express
+ * */
 const express = require("express");
+
+/**
+ * npm package - dotenv is used to set up environment variables
+ * @const dotenv
+ * */
 const dotenv = require("dotenv");
+
+/**
+ * npm package  - cors manages cross origin permissions
+ * @const cors
+ * */
 const cors = require("cors");
+
+/**
+ * npm package  - allows to show more readable logs
+ * @const colors
+ * */
 const colors = require("colors");
 
-//general imports
+/**
+ * Importing all the database configurations and models
+ * @const connectDB
+ */
 const connectDB = require("./db/index.js");
 
 /**
- * @type{string}
+ * Intializing an express app instance
+ * @const app
  */
-const name = "methma";
-
-//express app setup
 const app = express();
 
-//environment variable configuaration
+/**
+ * Environment varaiables setup configuration
+ * @function config
+ */
 dotenv.config();
 
-//middlewear
+/**
+ * Importing gridRoute - all the API end points related to grid functionality
+ * @const gridRoute
+ */
+const gridRoute = require("./routes/grid");
+
+/**
+ * express app middlewear setup
+ * @function use
+ */
 app.use(express.json());
 app.use(cors());
+app.use("/api/grid", gridRoute);
 
-//db connection
+/**
+ * connecting to mongoDB
+ */
 connectDB();
 
-//import Routes
-const userRoute = require("./routes/home");
-
-//route middlewear
-app.use("/api/user", userRoute);
-
-//test route
-app.get("/", (req, res) => {
-	res.send("Success");
-});
-
+/**
+ * listening to the given port
+ * @function listen
+ */
 app.listen(process.env.PORT, () =>
 	console.log(
 		colors.yellow.bold(`🚀 Server is running on`),
