@@ -1,36 +1,36 @@
 /**
  * npm package - Node js framework
- * @constant express
+ * @const express
  * */
 const express = require("express");
 
 /**
  * npm package - dotenv is used to set up environment variables
- * @constant dotenv
+ * @const dotenv
  * */
 const dotenv = require("dotenv");
 
 /**
  * npm package  - cors manages cross origin permissions
- * @constant cors
+ * @const cors
  * */
 const cors = require("cors");
 
 /**
  * npm package  - allows to show more readable logs
- * @constant colors
+ * @const colors
  * */
 const colors = require("colors");
 
 /**
  * Importing all the database configurations and models
- * @constant connectDB
+ * @const connectDB
  */
 const connectDB = require("./db/index.js");
 
 /**
  * Intializing an express app instance
- * @constant app
+ * @const app
  */
 const app = express();
 
@@ -42,7 +42,7 @@ dotenv.config();
 
 /**
  * Importing gridRoute - all the API end points related to grid functionality
- * @constant gridRoute
+ * @const gridRoute
  */
 const gridRoute = require("./routes/grid");
 

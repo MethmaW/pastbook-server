@@ -1,5 +1,19 @@
+/**
+ * Importing express router
+ * @const express-router
+ * */
 const router = require("express").Router();
+
+/**
+ * Importing the Grid collection
+ * @const Grid
+ * */
 const Grid = require("../db/models/Grid");
+
+/**
+ * @external API-postman-documentation
+ * @see {@link https://documenter.getpostman.com/view/13401090/TzRLmBBw}
+ */
 
 router.post("/save", async (req, res) => {
 	const { photos } = req.body;

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: db/index.js</title>
+    <title>JSDoc: Source: routes/grid.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: db/index.js</h1>
+    <h1 class="page-title">Source: routes/grid.js</h1>
 
     
 
@@ -27,36 +27,85 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * MongoDB library for object data modeling
- * @const mongoose
+ * Importing express router
+ * @const express-router
  * */
-const mongoose = require("mongoose");
-
-const colors = require("colors");
+const router = require("express").Router();
 
 /**
- * connecting to mongoDB
- * @function connectDB
+ * Importing the Grid collection
+ * @const Grid
+ * */
+const Grid = require("../db/models/Grid");
+
+/**
+ * @external API-postman-documentation
+ * @see {@link https://documenter.getpostman.com/view/13401090/TzRLmBBw}
  */
-const connectDB = () => {
-	const uri = process.env.DB_URI;
+
+router.post("/save", async (req, res) => {
+	const { photos } = req.body;
 
 	try {
-		mongoose.connect(
-			uri,
-			{
-				useNewUrlParser: true,
-				useUnifiedTopology: true,
-				useFindAndModify: false,
-			},
-			() => console.log(colors.blue.bold("🚀 Connected to MongoDB"))
-		);
-	} catch (error) {
-		console.log(error);
-	}
-};
+		const newGrid = new Grid({
+			photos: photos,
+		});
 
-module.exports = connectDB;
+		const saveGrid = await newGrid.save();
+
+		res.status(200).json({
+			success: true,
+			msg: "Saved grid successfully!",
+			data: saveGrid,
+		});
+	} catch (err) {
+		console.log("Save grid", err);
+
+		res.status(500).json({
+			status: false,
+			msg: "Grid saving process was unsuccessful",
+			data: err,
+		});
+	}
+});
+
+router.get("/get", async (req, res) => {
+	try {
+		const photoGrid = await Grid.find({});
+		res.status(200).json({
+			success: true,
+			msg: "Fectched grid data successfully!",
+			data: photoGrid,
+		});
+	} catch (err) {
+		res.status(500).json({
+			status: false,
+			msg: "Grid saving process was unsuccessful",
+			data: err,
+		});
+	}
+});
+
+router.post("/delete", async (req, res) => {
+	const { id } = req.body;
+
+	try {
+		const photoGrid = await Grid.deleteOne({ _id: id });
+		res.status(200).json({
+			success: true,
+			msg: "Deleted the grid successfully!",
+			data: photoGrid,
+		});
+	} catch (err) {
+		res.status(500).json({
+			status: false,
+			msg: "Grid deleting process was unsuccessful",
+			data: err,
+		});
+	}
+});
+
+module.exports = router;
 </code></pre>
         </article>
     </section>

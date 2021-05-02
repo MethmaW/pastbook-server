@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 /**
  * Mongoose schema for the Grid collection
- * @constant gridSchema
+ * @const gridSchema
  */
 const gridSchema = new mongoose.Schema({
 	photos: { type: [{}], required: true },

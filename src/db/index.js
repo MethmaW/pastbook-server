@@ -1,6 +1,6 @@
 /**
  * MongoDB library for object data modeling
- * @constant mongoose
+ * @const mongoose
  * */
 const mongoose = require("mongoose");
 
