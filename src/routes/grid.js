@@ -15,6 +15,11 @@ const Grid = require("../db/models/Grid");
  * @see {@link https://documenter.getpostman.com/view/13401090/TzRLmBBw}
  */
 
+/**
+ * IMPORTANT - these apis must have an authentication middlewear function and take in user id from the request body as well.
+ * But the authentication middlewear function and the user id filed not have have been included in these apis -
+ * As there's no authentication workflow implemented.
+ */
 router.post("/save", async (req, res) => {
 	const { photos } = req.body;
 
