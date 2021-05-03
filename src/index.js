@@ -46,7 +46,11 @@ dotenv.config();
  */
 const gridRoute = require("./routes/grid");
 
-const { apiGridGet } = require("./__tests__/requests");
+const {
+	apiGridGet,
+	apiGridSave,
+	apiGridDelete,
+} = require("./__tests__/requests");
 
 /**
  * express app middlewear setup
@@ -63,6 +67,8 @@ connectDB();
 
 /** tests */
 apiGridGet(app);
+apiGridSave(app);
+apiGridDelete(app);
 
 /**
  * listening to the given port

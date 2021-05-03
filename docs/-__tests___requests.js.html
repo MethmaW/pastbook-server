@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: routes/grid.js</title>
+    <title>JSDoc: Source: __tests__/requests.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: routes/grid.js</h1>
+    <h1 class="page-title">Source: __tests__/requests.js</h1>
 
     
 
@@ -26,91 +26,59 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Importing express router
- * @const express-router
- * */
-const router = require("express").Router();
+            <pre class="prettyprint source linenums"><code>const request = require("supertest");
 
 /**
- * Importing the Grid collection
- * @const Grid
- * */
-const Grid = require("../db/models/Grid");
-
-/**
- * @external API-postman-documentation
- * @see {@link https://documenter.getpostman.com/view/13401090/TzRLmBBw}
+ * Test - Fetching all the photos from db successfully
+ *@function apiGridGet
  */
+const apiGridGet = (app) => {
+	request(app)
+		.get("/api/grid/get")
+		.expect(200)
+		.end(function (err, res) {
+			if (err) throw err;
+			if (!err) {
+				console.log("GET API - fetch photos test passed");
+			}
+		});
+};
 
 /**
- * IMPORTANT - these apis must have an authentication middlewear function and take in user id from the request body as well.
- * But the authentication middlewear function and the user id filed not have have been included in these apis -
- * As there's no authentication workflow implemented.
+ * Test - Saving a photo grid to the db successfully
+ * @function apiGridSave
  */
-router.post("/save", async (req, res) => {
-	const { photos } = req.body;
-
-	try {
-		const newGrid = new Grid({
-			photos: photos,
+const apiGridSave = (app) => {
+	request(app)
+		.post("/api/grid/save")
+		.send({ photos: [{ id: "0", thumb: "test image" }] })
+		.expect(200)
+		.end(function (err, res) {
+			if (err) throw err;
+			if (!err) {
+				console.log("POST API - save photos test passed");
+			}
 		});
+};
 
-		const saveGrid = await newGrid.save();
-
-		res.status(200).json({
-			success: true,
-			msg: "Saved grid successfully!",
-			data: saveGrid,
+/**
+ * Test - Must fail to delete the document from the db when a wrong id is provided
+ * @function apiGridDelete
+ */
+const apiGridDelete = (app) => {
+	request(app)
+		.post("/api/grid/delete")
+		.send({ id: "0" })
+		.expect(500)
+		.end(function (err, res) {
+			if (err) throw err;
+			if (!err) {
+				console.log("POST API - delete photos test passed");
+			}
 		});
-	} catch (err) {
-		console.log("Save grid", err);
+};
 
-		res.status(500).json({
-			status: false,
-			msg: "Grid saving process was unsuccessful",
-			data: err,
-		});
-	}
-});
-
-router.get("/get", async (req, res) => {
-	try {
-		const photoGrid = await Grid.find({});
-		res.status(200).json({
-			success: true,
-			msg: "Fectched grid data successfully!",
-			data: photoGrid,
-		});
-	} catch (err) {
-		res.status(500).json({
-			status: false,
-			msg: "Grid saving process was unsuccessful",
-			data: err,
-		});
-	}
-});
-
-router.post("/delete", async (req, res) => {
-	const { id } = req.body;
-
-	try {
-		const photoGrid = await Grid.deleteOne({ _id: id });
-		res.status(200).json({
-			success: true,
-			msg: "Deleted the grid successfully!",
-			data: photoGrid,
-		});
-	} catch (err) {
-		res.status(500).json({
-			status: false,
-			msg: "Grid deleting process was unsuccessful",
-			data: err,
-		});
-	}
-});
-
-module.exports = router;
+module.exports = { apiGridGet, apiGridSave, apiGridDelete };
 </code></pre>
         </article>
     </section>
